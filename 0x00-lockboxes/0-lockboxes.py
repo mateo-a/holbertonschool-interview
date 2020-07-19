@@ -11,17 +11,13 @@ def canUnlockAll(boxes):
 
     checkBox = [0] * len(boxes)
     checkBox[0] = 1
-    i = 0
+    check = [0]
 
-    for keys in boxes:
-        for key in keys:
-            if (len(keys) == 1):
-                if ((boxes[i][0] == i) and (i < len(boxes) - 1)):
-                    return False
-            if (checkBox[key] == 0):
-                checkBox[key] = 1
-        i += 1
-    if (checkBox.count(1) == len(boxes)):
-        return True
-    else:
-        return False
+    while check:
+        keys = check.pop()
+        for key in boxes[keys]:
+            if key < len(boxes):
+                if not checkBox[key]:
+                    checkBox[key] = 1
+                    check.append(key)
+    return all(checkBox)
