@@ -21,7 +21,8 @@ int _height(const binary_tree_t *tree)
 /**
  * heapify - Check if child is greather than parent and order the heap
  * @firstParent: Node parent of node to insert
- * @nodeChild: Node that will be inserted and need to be checked with the parent
+ * @nodeChild: Node that will be inserted and need to be checked with
+ *             the parent
  */
 void heapify(heap_t **firstParent, heap_t **nodeChild)
 {
@@ -77,7 +78,9 @@ int treeFull(const binary_tree_t *root)
 	{
 		if (_height(root->left) == -1)
 			return (1);
-		if ((root->left && !((root->left)->left) && !((root->left)->right)) && (root->right && !((root->right)->left) && !((root->right)->right)))
+		if ((root->left && !((root->left)->left) && !((root->left)->right))
+		&& (root->right && !((root->right)->left)
+		&& !((root->right)->right)))
 			return (1);
 		if (root && root->left && root->right)
 			return (treeFull(root->left) && treeFull(root->right));
