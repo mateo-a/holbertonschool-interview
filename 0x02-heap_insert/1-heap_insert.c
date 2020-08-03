@@ -10,7 +10,8 @@ heap_t *checkFree(heap_t *root)
 	heap_t *strider = root;
 	int inPos = 0, outPos = 0;
 
-	while (strider && strider->left && strider->right)
+	parentCheck = *firstParent, childCheck = *nodeChild;
+	if (childCheck->n > parentCheck->n)
 	{
 		arr[inPos] = strider->left;
 		inPos += 1;
@@ -25,9 +26,7 @@ heap_t *checkFree(heap_t *root)
 		if (outPos >= 999)
 			outPos = 0;
 	}
-	return (strider);
 }
-
 /**
  * heap_insert - function that inserts a value into a Max Binary Heap
  * @root: is a double pointer to the root node of the Heap
@@ -55,10 +54,9 @@ heap_t *heap_insert(heap_t **root, int value)
 		posInsertion->right = new;
 	while (new->parent && new->n > (new->parent)->n)
 	{
-		temp = (new->parent)->n;
-		(new->parent)->n = new->n;
-		new->n = temp;
-		new = new->parent;
+		new = (*root)->right = binary_tree_node(*root, value);
+		heapify(root, &((*root)->right));
+		return (new);
 	}
-	return (new);
+	return (NULL);
 }
