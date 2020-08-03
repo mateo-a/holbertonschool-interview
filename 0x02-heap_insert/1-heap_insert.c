@@ -87,6 +87,7 @@ int treeFull(const binary_tree_t *root)
 	}
 	return (0);
 }
+
 /**
  * heap_insert - function that inserts a value in Max Binary Heap
  * @root: double pointer to the root node of the Heap
