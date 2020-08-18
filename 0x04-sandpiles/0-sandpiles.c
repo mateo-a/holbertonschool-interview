@@ -22,8 +22,8 @@ void print_grid(int grid[3][3])
 /**
  * topple - topple each pile of the Sandpile
  * @grid: grid to change
- * @row: row to topple 
- * @col: col to topple 
+ * @row: row to topple
+ * @col: col to topple
  */
 void topple(int grid[3][3], int row, int col)
 {
