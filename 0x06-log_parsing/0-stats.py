@@ -1,46 +1,30 @@
 #!/usr/bin/python3
-
-""" Script that reads stdin line by line and computes metrics """
-
+""" Parses Logs """
 import sys
 
 
-def printStatistics(statusCode, fileSize):
-    """ Function to print statistics """
-    print("File size: {:d}".format(fileSize))
-    for i in sorted(statusCode.keys()):
-        if statusCode[i] != 0:
-            print("{}: {:d}".format(i, statusCode[i]))
-
-
-statusCodes = {"200": 0,
-               "301": 0,
-               "400": 0,
-               "401": 0,
-               "403": 0,
-               "404": 0,
-               "405": 0,
-               "500": 0}
-statusCounter = 0
-fileSize = 0
-
+i = 0
+FileSize = 0
+status = {'200': 0, '301': 0, '400': 0, '401': 0,
+          '403': 0, '404': 0, '405': 0, '500': 0}
+codes = ['200', '301', '400', '401', '403', '404', '405', '500']
 try:
     for line in sys.stdin:
-        if statusCounter != 0 and statusCounter % 10 == 0:
-            printStatistics(statusCodes, fileSize)
-        statusList = line.split()
-        statusCounter += 1
-        try:
-            fileSize += int(statusList[-1])
-        except:
-            pass
-        try:
-            if statusList[-2] in statusCodes:
-                statusCodes[statusList[-2]] += 1
-        except:
-            pass
-    printStatistics(statusCodes, fileSize)
-
+        i += 1
+        sp = line.split(' ')
+        if len(sp) > 2:
+            FileSize += int(sp[-1])
+            if sp[-2] in status:
+                status[sp[-2]] += 1
+        if i % 10 == 0:
+            print("File size: {}".format(FileSize))
+            for code in codes:
+                if status[code]:
+                    print("{}: {}".format(code, status[code]))
 except KeyboardInterrupt:
-    printStatistics(statusCodes, fileSize)
-    raise
+    pass
+finally:
+    print("File size: {}".format(FileSize))
+    for code in codes:
+        if status[code]:
+            print("{}: {}".format(code, status[code]))
