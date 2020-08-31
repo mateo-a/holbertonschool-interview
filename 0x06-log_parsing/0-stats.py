@@ -13,8 +13,6 @@ def printStatistics(statusCode, fileSize):
             print("{}: {:d}".format(i, statusCode[i]))
 
 
-statusCounter = 0
-fileSize = 0
 statusCodes = {"200": 0,
                "301": 0,
                "400": 0,
@@ -23,6 +21,8 @@ statusCodes = {"200": 0,
                "404": 0,
                "405": 0,
                "500": 0}
+statusCounter = 0
+fileSize = 0
 
 try:
     for line in sys.stdin:
