@@ -5,42 +5,41 @@
 import sys
 
 
-def printStatistics(statusCode, fileSize):
+def printsts(dic, size):
     """ Function to print statistics """
-    print("File size: {:d}".format(fileSize))
-    for i in sorted(statusCode.keys()):
-        if statusCode[i] != 0:
-            print("{}: {:d}".format(i, statusCode[i]))
+    print("File size: {:d}".format(size))
+    for i in sorted(dic.keys()):
+        if dic[i] != 0:
+            print("{}: {:d}".format(i, dic[i]))
 
 
-statusCodes = {"200": 0,
-               "301": 0,
-               "400": 0,
-               "401": 0,
-               "403": 0,
-               "404": 0,
-               "405": 0,
-               "500": 0}
-statusCounter = 0
-fileSize = 0
+sts = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0,
+       "404": 0, "405": 0, "500": 0}
+
+count = 0
+size = 0
 
 try:
     for line in sys.stdin:
-        if statusCounter != 0 and statusCounter % 10 == 0:
-            printStatistics(statusCodes, fileSize)
-        statusList = line.split()
-        statusCounter += 1
+        if count != 0 and count % 10 == 0:
+            printsts(sts, size)
+
+        stlist = line.split()
+        count += 1
+
         try:
-            fileSize += int(statusList[-1])
+            size += int(stlist[-1])
         except:
             pass
+
         try:
-            if statusList[-2] in statusCodes:
-                statusCodes[statusList[-2]] += 1
+            if stlist[-2] in sts:
+                sts[stlist[-2]] += 1
         except:
             pass
-    printStatistics(statusCodes, fileSize)
+    printsts(sts, size)
+
 
 except KeyboardInterrupt:
-    printStatistics(statusCodes, fileSize)
+    printsts(sts, size)
     raise
