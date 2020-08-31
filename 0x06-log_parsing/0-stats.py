@@ -1,41 +1,46 @@
 #!/usr/bin/python3
-"""Input stats"""
+
+""" Script that reads stdin line by line and computes metrics """
+
 import sys
 
-stats = {
-    '200': 0,
-    '301': 0,
-    '400': 0,
-    '401': 0,
-    '403': 0,
-    '404': 0,
-    '405': 0,
-    '500': 0
-}
-sizes = [0]
+
+def printStatistics(statusCode, fileSize):
+    """ Function to print statistics """
+    print("File size: {:d}".format(fileSize))
+    for i in sorted(statusCode.keys()):
+        if statusCode[i] != 0:
+            print("{}: {:d}".format(i, statusCode[i]))
 
 
-def print_stats():
-    print('File size: {}'.format(sum(sizes)))
-    for s_code, count in sorted(stats.items()):
-        if count:
-            print('{}: {}'.format(s_code, count))
-
+statusCodes = {"200": 0,
+               "301": 0,
+               "400": 0,
+               "401": 0,
+               "403": 0,
+               "404": 0,
+               "405": 0,
+               "500": 0}
+statusCounter = 0
+fileSize = 0
 
 try:
-    for i, line in enumerate(sys.stdin, start=1):
-        matches = line.rstrip().split()
+    for line in sys.stdin:
+        if statusCounter != 0 and statusCounter % 10 == 0:
+            printStatistics(statusCodes, fileSize)
+        statusList = line.split()
+        statusCounter += 1
         try:
-            status_code = matches[-2]
-            file_size = matches[-1]
-            if status_code in stats.keys():
-                stats[status_code] += 1
-            sizes.append(int(file_size))
-        except Exception:
+            fileSize += int(statusList[-1])
+        except:
             pass
-        if i % 10 == 0:
-            print_stats()
-    print_stats()
+        try:
+            if statusList[-2] in statusCodes:
+                statusCodes[statusList[-2]] += 1
+        except:
+            pass
+    printStatistics(statusCodes, fileSize)
+
 except KeyboardInterrupt:
-    print_stats()
+    printStatistics(statusCodes, fileSize)
     raise
