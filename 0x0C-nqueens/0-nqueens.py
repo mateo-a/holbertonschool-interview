@@ -5,9 +5,11 @@ from sys import argv, exit
 
 
 def solution(n):
+    """Solution"""
     res = []
 
     def boardPosition(row, left, right, m, arr):
+        """ Check Board Positions"""
         if row == n:
             res.append(arr)
         else:
