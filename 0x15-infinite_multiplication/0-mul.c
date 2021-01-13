@@ -1,4 +1,4 @@
-#include <string.h>
+#include "holberton.h"
 
 /**
  * _isdigit - checks if it is fully a number
