@@ -33,7 +33,8 @@ void merge(int *arr, int *lef, int *rig, size_t size)
 }
 
 /**
- * merge_sort - Sorts an array of integers in ascending order using the Merge Sort algorithm
+ * merge_sort - Sorts an array of integers in ascending order using the
+ *		Merge Sort algorithm
  * @array: Input array
  * @size: Size of array
  */
