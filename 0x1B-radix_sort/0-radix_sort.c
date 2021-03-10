@@ -55,7 +55,7 @@ void count_sort(int *array, size_t size, int digit)
 
 /**
  * radix_sort - sorts an array of integers in ascending order using the Radix
- * 				sort algorithm
+ *				sort algorithm
  * @array: array of data to be sorted
  * @size: size of data
  * Return: No Return
